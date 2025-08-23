@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      background: #eef2f7;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0066cc, #004a99);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 25px auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .card h2 {
+      margin-bottom: 15px;
+      color: #004a99;
+      border-left: 4px solid #0066cc;
+      padding-left: 8px;
+    }
+
+    /* History detail view */
+    .history-record {
+      border: 1px solid #e0e6ed;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #fafbff;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f3f7;
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .history-label {
+      font-weight: 600;
+      color: #444;
+    }
+
+    .history-value {
+      color: #0066cc;
+      font-weight: 500;
+      text-align: right;
+      max-width: 70%;
+      word-wrap: break-word;
+    }
+
+    .empty-record {
+      text-align: center;
+      color: #888;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Patient Dashboard</h1>
+  </header>
+
+  <div class="container">
+
+    <!-- Patient Info -->
+    <div class="card">
+      <h2>User Information</h2>
+      <p><b>Username:</b> {{ user.name }}</p>
+      <p><b>Email:</b> {{ user.Email }}</p>
+    </div>
+
+    <!-- Add Patient Record Form -->
+    <div class="card">
+      <h2>Add Patient Record</h2>
+      <form method="post">
+        {% csrf_token %}
+        
+        <label for="admit_date">Admit Date</label>
+        <input type="date" name="admit_date" id="admit_date" required>
+
+        <label for="deseas">Disease</label>
+        <input type="text" name="deseas" id="deseas" maxlength="200" required>
+
+        <label for="medicine">Medicine</label>
+        <input type="text" name="medicine" id="medicine" maxlength="300" required>
+
+        <label for="notes">Notes</label>
+        <textarea name="notes" id="notes" rows="3" maxlength="300"></textarea>
+
+        <label for="bed_no">Bed No</label>
+        <input type="number" name="bed_no" id="bed_no" required>
+
+        <label for="gardian">Guardian</label>
+        <input type="text" name="gardian" id="gardian" maxlength="50" required>
+
+        <button type="submit">Save Record</button>
+      </form>
+    </div>
+
+    <!-- Patient History -->
+    <div class="card">
+      <h2>Patient History</h2>
+      {% for p in patient %}
+      <div class="history-record">
+        <div class="history-item">
+          <span class="history-label">Admit Date</span>
+          <span class="history-value">{{ p.admit_date }}</span>
+        </div>
+        <div class="history-item">
+          <span class="history-label">Disease</span>
+          <span class="history-value">{{ p.deseas }}</span>
+        </div>
+        <div class="history-item">
+          <span class="history-label">Medicine</span>
+          <span class="history-value">{{ p.medicine }}</span>
+        </div>
+        <div class="history-item">
+          <span class="history-label">Notes</span>
+          <span class="history-value">{{ p.notes }}</span>
+        </div>
+        <div class="history-item">
+          <span class="history-label">Bed No</span>
+          <span class="history-value">{{ p.bed_no }}</span>
+        </div>
+        <div class="history-item">
+          <span class="history-label">Guardian</span>
+          <span class="history-value">{{ p.gardian }}</span>
+        </div>
+      </div>
+      {% empty %}
+      <div class="empty-record">No records found.</div>
+      {% endfor %}
+    </div>
+
+  </div>
+</body>
+</html>

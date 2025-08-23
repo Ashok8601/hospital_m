@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .registration-form {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .registration-form h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .note {
+            text-align: center;
+            margin-top: 15px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <form class="registration-form" method="POST" action="">
+        {% csrf_token %}
+        <h2>Patient Registration</h2>
+        
+        <div class="form-group">
+            <label for="id_name">Name</label>
+            {{ form.name }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_father_name">Father's Name</label>
+            {{ form.father_name }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_mother">Mother's Name</label>
+            {{ form.mother }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_Email">Email</label>
+            {{ form.Email }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_age">Age</label>
+            {{ form.age }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_mo_no">Mobile Number</label>
+            {{ form.mo_no }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_village">Village</label>
+            {{ form.village }}
+        </div>
+
+        <input type="submit" value="Register">
+        <p class="note">All fields are required.</p>
+    </form>
+</body>
+</html>
